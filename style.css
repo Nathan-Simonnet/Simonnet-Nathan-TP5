@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
+
+
+:root {
+
+    --background-color: #e2e2e2;
+    --title-container: #EDA114;
+    --title-color: #F4F3F3;
+
+    --block-color: #F4F3F3;
+
+    --text-color: #002A32;
+
+    --sub-title-container: #d5d4d4;
+    --sub-container: #e2e2e2;
+}
+
+:root.dark-mode {
+    --background-color: #001a20;
+    --title-container: #db8e00;
+    --title-color: #F4F3F3;
+
+    --block-color: #002A32;
+
+    --text-color: #F4F3F3;
+    --text-background-color: #002A32;
+
+    --sub-title-container: #001418;
+    --sub-container: #001a20;
+}
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: 1px solid red;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+button {
+    border-radius: 4px;
+    height: 26px;
+    padding: 6px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0.1s;
+}
+
+button.clicked {
+    transform: scale(0.9);
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.filter-container {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    & button {
+        margin: 6px;
+        cursor: pointer;
+    }
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.cinema {
+    height: 200px;
+    width: 200px;
+    margin: 12px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: baseline;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: baseline;
+
+    & button {
+        cursor: pointer;
+    }
+
+    & input {
+        height: 30px;
+        width: 300px;
+    }
+}
