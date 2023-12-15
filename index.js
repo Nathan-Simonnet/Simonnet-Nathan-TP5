@@ -5,10 +5,8 @@ let cinemasList = [];
 let userLocation;
 let cinemaFromUserLocation;
 let cinemasNearMe = [];
-let jenaimarre;
 
 let distanceCompare = function (data) {
-
 
     console.log(data)
     console.log(data[0].geolocalisation, userLocation)
@@ -23,11 +21,8 @@ let distanceCompare = function (data) {
     cinemasNearMe = data.sort((a, b) => {
         return a.distanceFrom - b.distanceFrom
     })
-
-    setTimeout(() => {
-        cinemasList = cinemasNearMe.slice(0, 20)
-        cinemasDisplayer(cinemasList)
-    }, 10000)
+    cinemasList = cinemasNearMe.slice(0, 20)
+    cinemasDisplayer(cinemasList)
 
 }
 // distance from
@@ -150,6 +145,11 @@ document.getElementById('localisation-btn').addEventListener('click', (e) => {
     getUserLocation()
 });
 
+// event listener and load
+// ============================================================
+const placesSorting = document.getElementById('places-sorting');
+const distanceSorting = document.getElementById('distance-sorting');
+
 fetch('https://data.culture.gouv.fr/api/explore/v2.1/catalog/datasets/etablissements-cinematographiques/records?limit=20')
     .then((response) => response.json())
     .then((data) => {
@@ -157,18 +157,17 @@ fetch('https://data.culture.gouv.fr/api/explore/v2.1/catalog/datasets/etablissem
         cinemasDisplayer(data.results)
     });
 
-const placesSorting = document.getElementById('places-sorting');
-const distanceSorting = document.getElementById('distance-sorting');
 
 placesSorting.addEventListener('click', () => {
     distanceSorting.classList.remove('clicked');
     placesSorting.classList.add('clicked')
+    console.log(cinemasList)
     cinemasList = cinemasList.sort((a, b) => {
         return a.fauteuils - b.fauteuils
     })
-    setTimeout(() => {
-        cinemasDisplayer(cinemasList)
-    }, 100)
+
+    cinemasDisplayer(cinemasList)
+
 });
 
 distanceSorting.addEventListener('click', () => {
@@ -179,9 +178,5 @@ distanceSorting.addEventListener('click', () => {
         `
 Un instant si il vous plait... je réfléchis...
 `;
-    getUserLocation()
-});
-
-window.addEventListener('load', () => {
     getUserLocation()
 });
