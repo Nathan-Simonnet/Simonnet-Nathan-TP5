@@ -80,6 +80,10 @@ header {
 }
 
 main {
+
+    min-height: 400px;
+    padding: 12px;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -107,8 +111,14 @@ form {
         cursor: pointer;
     }
 
-    & input {
-        height: 30px;
-        width: 300px;
+    & div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        & input {
+            height: 30px;
+            width: 300px;
+        }
     }
 }
