@@ -1,15 +1,19 @@
-// cinemas: 
-// https://data.culture.gouv.fr/api/explore/v2.1/catalog/datasets/etablissements-cinematographiques/records'
-// https://data.culture.gouv.fr/explore/dataset/etablissements-cinematographiques/api
+// J'ai essayé de faire des import / export, mais il y à tellement d'interactions maintenant, c'est la dernière fois que je fais des bloc JS comme celui ci, lesson learn
+
 let cinemasList = [];
 let userLocation;
 let cinemaFromUserLocation;
 let cinemasNearMe = [];
 
+// Take the entire array of cinemas, compare to the current position, and slice the 20 nearest of them, then cinema displayer
+// ====================================================================================
+
 let distanceCompare = function (data) {
+
 
     console.log(data)
     console.log(data[0].geolocalisation, userLocation)
+
 
     for (let i = 0; i < data.length; i++) {
         if (data[i].geolocalisation) {
@@ -25,8 +29,7 @@ let distanceCompare = function (data) {
     cinemasDisplayer(cinemasList)
 
 }
-// distance from
-// ============================================
+
 const distanceFrom = function (userloc, cinemaLoc) {
     // Rayon de la Terre en kilomètres (approximatif)
     const earthRadius = 6371;
@@ -56,14 +59,8 @@ const distanceFrom = function (userloc, cinemaLoc) {
     return distance;
 }
 
-// // Pages index
-// // =========================================
-// const pagesIndexDisplayer = (data) => {
-//     console.log(data)
-// }
-
-// Cinemas
-// ==========================================
+// Cinemas display,  max = 20
+// ====================================================================================
 
 const cinemasDisplayer = (data) => {
     console.log(data)
@@ -114,6 +111,33 @@ cinemasFetcher = function () {
         })
 }
 
+
+// Latt/long by adress
+// =====================================================================================
+
+const locByAdress = (adress) => {
+
+    const adressParser = function () {
+        return adress.replace(/\s/g, '');
+    }
+    const adressParsed = adressParser(adress)
+    const key = 'AIzaSyA8tNgY8ObKVq_2KivfACiODsu8Hf6frZs'
+    const urlCombined = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + adressParsed + '&key=' + key
+    fetch(urlCombined)
+        .then((response) => response.json())
+        .then((data) => {
+            userLocation = data.results[0].geometry.location
+            document.querySelector('main').innerHTML =
+                `
+Un instant si il vous plait... je réfléchis...
+`;
+            cinemasFetcher();
+        })
+
+}
+// locByAdress('74 rue  raspail 31400')
+
+
 // Adress by latt/lon
 // ======================================================================================
 
@@ -141,10 +165,9 @@ const getUserLocation = function () {
 }
 
 // event listener and load
-// ============================================================
+// ====================================================================================
 
 // Just so there is always somes thing displayed on screen
-
 window.addEventListener('load', () => {
     fetch('https://data.culture.gouv.fr/api/explore/v2.1/catalog/datasets/etablissements-cinematographiques/records?limit=20')
         .then((response) => response.json())
@@ -157,6 +180,7 @@ window.addEventListener('load', () => {
 const placesSorting = document.getElementById('places-sorting');
 const distanceSorting = document.getElementById('distance-sorting');
 
+// Onclick Trier par nombre de places
 placesSorting.addEventListener('click', () => {
     distanceSorting.classList.remove('clicked');
     placesSorting.classList.add('clicked')
@@ -169,6 +193,7 @@ placesSorting.addEventListener('click', () => {
 
 });
 
+// Onclick Trier par distance
 distanceSorting.addEventListener('click', () => {
     distanceSorting.classList.add('clicked');
     placesSorting.classList.remove('clicked');
@@ -180,6 +205,8 @@ Un instant si il vous plait... je réfléchis...
     getUserLocation()
 });
 
+
+// Onclick me geolocaliser
 document.getElementById('localisation-btn').addEventListener('click', (e) => {
     e.preventDefault()
     document.querySelector('main').innerHTML =
@@ -187,4 +214,12 @@ document.getElementById('localisation-btn').addEventListener('click', (e) => {
 Un instant si il vous plait... je réfléchis...
 `;
     getUserLocation()
+});
+
+const inputAdress = document.getElementById('input-adress');
+const adressBtn = document.getElementById('adress-btn');
+adressBtn.addEventListener('click', (e) => {
+    e.preventDefault()
+    locByAdress(inputAdress.value)
+
 });
