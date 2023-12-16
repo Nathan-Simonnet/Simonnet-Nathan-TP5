@@ -79,10 +79,10 @@ const cinemasDisplayer = (data) => {
             `
         <div class="cinema" data.places="${data[i].fauteuils
             }">
-        <p>Nom:${data[i].nom}</p>
-        <p>Adress:${data[i].adresse}
+        <p>Nom: ${data[i].nom}</p>
+        <p>Adress: ${data[i].adresse}
         </p>
-        <p>Ville:${data[i].commune}</p>
+        <p>Ville: ${data[i].commune}</p>
         </div>
         `
     }
@@ -140,23 +140,22 @@ const getUserLocation = function () {
     }
 }
 
-document.getElementById('localisation-btn').addEventListener('click', (e) => {
-    e.preventDefault()
-    getUserLocation()
-});
-
 // event listener and load
 // ============================================================
+
+// Just so there is always somes thing displayed on screen
+
+window.addEventListener('load', () => {
+    fetch('https://data.culture.gouv.fr/api/explore/v2.1/catalog/datasets/etablissements-cinematographiques/records?limit=20')
+        .then((response) => response.json())
+        .then((data) => {
+            cinemasList = data.results
+            cinemasDisplayer(data.results)
+        });
+});
+
 const placesSorting = document.getElementById('places-sorting');
 const distanceSorting = document.getElementById('distance-sorting');
-
-fetch('https://data.culture.gouv.fr/api/explore/v2.1/catalog/datasets/etablissements-cinematographiques/records?limit=20')
-    .then((response) => response.json())
-    .then((data) => {
-        cinemasList = data.results
-        cinemasDisplayer(data.results)
-    });
-
 
 placesSorting.addEventListener('click', () => {
     distanceSorting.classList.remove('clicked');
@@ -174,6 +173,15 @@ distanceSorting.addEventListener('click', () => {
     distanceSorting.classList.add('clicked');
     placesSorting.classList.remove('clicked');
 
+    document.querySelector('main').innerHTML =
+        `
+Un instant si il vous plait... je réfléchis...
+`;
+    getUserLocation()
+});
+
+document.getElementById('localisation-btn').addEventListener('click', (e) => {
+    e.preventDefault()
     document.querySelector('main').innerHTML =
         `
 Un instant si il vous plait... je réfléchis...

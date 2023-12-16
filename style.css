@@ -2,41 +2,22 @@
 
 
 :root {
-
-    --background-color: #e2e2e2;
-    --title-container: #EDA114;
-    --title-color: #F4F3F3;
-
-    --block-color: #F4F3F3;
-
-    --text-color: #002A32;
-
-    --sub-title-container: #d5d4d4;
-    --sub-container: #e2e2e2;
-}
-
-:root.dark-mode {
     --background-color: #001a20;
-    --title-container: #db8e00;
-    --title-color: #F4F3F3;
+    --block-color: #045b6e;
+    --title-color: #db8e00;
 
-    --block-color: #002A32;
-
-    --text-color: #F4F3F3;
-    --text-background-color: #002A32;
-
-    --sub-title-container: #001418;
-    --sub-container: #001a20;
 }
 
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    border: 1px solid grey;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 body {
+    background: var(--background-color);
+    color: #F4F3F3;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -59,10 +40,17 @@ button.clicked {
 }
 
 header {
+    padding: 6px;
+    border-radius: 12px;
+    background: var(--block-color);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+h1 {
+    color: var(--title-color);
 }
 
 .filter-container {
@@ -75,11 +63,16 @@ header {
     & button {
         margin: 6px;
         cursor: pointer;
+
+        transition: 0.1s;
+    }
+
+    & button:hover {
+        background: rgb(219, 219, 219);
     }
 }
 
 main {
-
     min-height: 400px;
     padding: 12px;
 
@@ -90,14 +83,44 @@ main {
 }
 
 .cinema {
-    height: 200px;
-    width: 200px;
+    height: 250px;
+    width: 300px;
     margin: 12px;
+    padding: 6px;
 
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: baseline;
+
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    background: var(--block-color);
+
+    transition: 0.1s;
+
+    & p {
+
+        width: 100%;
+        min-height: 30px;
+        padding: 6px;
+        border: none;
+
+        display: flex;
+        justify-content: baseline;
+        align-items: center;
+
+        border-radius: 4px;
+        /* background: rgba(108, 108, 108, 0.608); */
+        background: #db8e00cb;
+        color: white;
+        font-weight: bold;
+    }
+}
+
+.cinema:hover {
+    transform: scale(1.05);
 }
 
 form {
@@ -105,6 +128,7 @@ form {
     flex-direction: column;
     justify-content: center;
     align-items: baseline;
+
 
     & button {
         cursor: pointer;
