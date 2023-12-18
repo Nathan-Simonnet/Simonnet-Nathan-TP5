@@ -1,5 +1,6 @@
 // J'ai essayé de faire des import / export, mais il y à tellement d'interactions maintenant, c'est la dernière fois que je fais des bloc JS comme celui ci, lesson learn
-
+// google map API
+const keyGeoloc = 'A remplir'
 let cinemasList = [];
 let userLocation;
 let cinemaFromUserLocation;
@@ -9,8 +10,6 @@ let cinemasNearMe = [];
 // ====================================================================================
 
 let distanceCompare = function (data) {
-
-
     console.log(data)
     console.log(data[0].geolocalisation, userLocation)
 
@@ -121,8 +120,7 @@ const locByAdress = (adress) => {
         return adress.replace(/\s/g, '');
     }
     const adressParsed = adressParser(adress)
-    const key = 'AIzaSyA8tNgY8ObKVq_2KivfACiODsu8Hf6frZs'
-    const urlCombined = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + adressParsed + '&key=' + key
+    const urlCombined = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + adressParsed + '&key=' + keyGeoloc
     fetch(urlCombined)
         .then((response) => response.json())
         .then((data) => {
